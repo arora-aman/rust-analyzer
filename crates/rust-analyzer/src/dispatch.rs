@@ -34,6 +34,7 @@ impl<'a> RequestDispatcher<'a> {
         };
         let world = panic::AssertUnwindSafe(&mut *self.global_state);
         let response = panic::catch_unwind(move || {
+            let world = world;
             let result = f(world.0, params);
             result_to_response::<R>(id, result)
         })
